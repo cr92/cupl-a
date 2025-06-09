@@ -30,3 +30,11 @@ fun dates_in_month (dates: (int * int * int) list, month: int) : (int * int * in
 fun dates_in_months (dates: (int * int * int) list, months: int list) : (int * int * int) list =
   if not (null months) then dates_in_month (dates, hd months) @ dates_in_months (dates, tl months)
   else []
+
+
+fun get_nth (strs: string list, n: int) : string =
+  if n = 1 then hd strs else get_nth (tl strs, n - 1)
+(*
+Write a function get_nth that takes a list of strings and an int n and returns the nth element of the
+list where the head of the list is 1st . Do not worry about the case where the list has too few elements:
+your function may apply hd or tl to the empty list in this case, which is okay. *)
