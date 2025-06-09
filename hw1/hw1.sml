@@ -7,4 +7,11 @@ in
     else if month1<month2 andalso year1=year2 then true
     else if day1<day2 andalso month1=month2 andalso year1=year2 then true
     else false
-end;
+end
+
+
+fun number_in_month(dates:(int*int*int)list, month:int):int =
+    if null dates then 0
+    else if #2 (hd dates)=month then 1 + number_in_month(tl dates, month)
+    else number_in_month(tl dates, month)
+
