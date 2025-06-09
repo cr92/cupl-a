@@ -1,7 +1,7 @@
 fun is_older (date1: int * int * int, date2: int * int * int) : bool =
   let
-    val (year1, month1, day1) = date1;
-    val (year2, month2, day2) = date2;
+    val (year1, month1, day1) = date1
+    val (year2, month2, day2) = date2
   in
     if year1 < year2 then true
     else if month1 < month2 andalso year1 = year2 then true
@@ -34,7 +34,25 @@ fun dates_in_months (dates: (int * int * int) list, months: int list) : (int * i
 
 fun get_nth (strs: string list, n: int) : string =
   if n = 1 then hd strs else get_nth (tl strs, n - 1)
-(*
-Write a function get_nth that takes a list of strings and an int n and returns the nth element of the
-list where the head of the list is 1st . Do not worry about the case where the list has too few elements:
-your function may apply hd or tl to the empty list in this case, which is okay. *)
+
+
+fun date_to_string (date: int * int * int) : string =
+  let
+    val (year, month, day) = date
+    val months =
+      [ "January"
+      , "February"
+      , "March"
+      , "April"
+      , "May"
+      , "June"
+      , "July"
+      , "August"
+      , "September"
+      , "October"
+      , "November"
+      , "December"
+      ]
+  in
+    get_nth (months, month) ^ " " ^ Int.toString (day) ^ ", " ^ Int.toString (year)
+  end
