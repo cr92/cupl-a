@@ -1,3 +1,4 @@
+(* 1 *)
 fun is_older (date1: int * int * int, date2: int * int * int) : bool =
   let
     val (year1, month1, day1) = date1
@@ -10,32 +11,38 @@ fun is_older (date1: int * int * int, date2: int * int * int) : bool =
   end
 
 
+(* 2 *)
 fun number_in_month (dates: (int * int * int) list, month: int) : int =
   if null dates then 0
   else if #2 (hd dates) = month then 1 + number_in_month (tl dates, month)
   else number_in_month (tl dates, month)
 
 
+(* 3 *)
 fun number_in_months (dates: (int * int * int) list, months: int list) : int =
   if null months then 0
   else number_in_month (dates, hd months) + number_in_months (dates, tl months)
 
 
+(* 4 *)
 fun dates_in_month (dates: (int * int * int) list, month: int) : (int * int * int) list =
   if null dates then []
   else if #2 (hd dates) = month then (hd dates) :: dates_in_month (tl dates, month)
   else dates_in_month (tl dates, month)
 
 
+(* 5 *)
 fun dates_in_months (dates: (int * int * int) list, months: int list) : (int * int * int) list =
   if not (null months) then dates_in_month (dates, hd months) @ dates_in_months (dates, tl months)
   else []
 
 
+(* 6 *)
 fun get_nth (strs: string list, n: int) : string =
   if n = 1 then hd strs else get_nth (tl strs, n - 1)
 
 
+(* 7 *)
 fun date_to_string (date: int * int * int) : string =
   let
     val (year, month, day) = date
@@ -58,15 +65,34 @@ fun date_to_string (date: int * int * int) : string =
   end
 
 
+(* 8 *)
 fun number_before_reaching_sum (target: int, numbers: int list) : int =
   if null (numbers) orelse target - hd numbers <= 0 then 0
   else 1 + number_before_reaching_sum (target - hd numbers, tl numbers)
 
 
-fun what_month (day: int) =
+(* 9 *)
+fun what_month (day: int) : int =
   let val dim = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
   in number_before_reaching_sum (day, dim) + 1
   end
 
+
+(* 10 *)
 fun month_range (day1: int, day2: int) : int list =
   if day1 = day2 then [what_month (day1)] else what_month (day1) :: month_range (day1 + 1, day2)
+
+
+(* 11 *)
+fun oldest (dates: (int * int * int) list) : (int * int * int) option =
+  if null (dates) then
+    NONE
+  else
+    let
+      val tail = tl (dates)
+      val head = hd (dates)
+    in
+      if null (tail) then SOME (head)
+      else if is_older (head, hd (tail)) then oldest (head :: tl (tail))
+      else oldest (tail)
+    end
