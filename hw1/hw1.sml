@@ -67,3 +67,6 @@ fun what_month (day: int) =
   let val dim = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
   in number_before_reaching_sum (day, dim) + 1
   end
+
+fun month_range (day1: int, day2: int) : int list =
+  if day1 = day2 then [what_month (day1)] else what_month (day1) :: month_range (day1 + 1, day2)
