@@ -59,6 +59,11 @@ fun date_to_string (date: int * int * int) : string =
 
 
 fun number_before_reaching_sum (target: int, numbers: int list) : int =
-  if null (numbers) then 0
-  else if target - hd numbers < 0 then ~1
+  if null (numbers) orelse target - hd numbers <= 0 then 0
   else 1 + number_before_reaching_sum (target - hd numbers, tl numbers)
+
+
+fun what_month (day: int) =
+  let val dim = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+  in number_before_reaching_sum (day, dim) + 1
+  end
