@@ -132,7 +132,7 @@ fun oldest (dates: (int * int * int) list) : (int * int * int) option =
       val head = hd dates
     in
       if null (tail) then SOME (head)
-      (* Compare head and head-of-tail, discard the newer of the two. Recursively check the remaining dates*)
+      (* Compare head and head-of-tail, discard the newer of the two. Recursively check the remaining dates *)
       else if is_older (head, hd tail) then oldest (head :: tl tail)
       else oldest tail
     end
